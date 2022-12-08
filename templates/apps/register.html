@@ -1,0 +1,34 @@
+{% extends 'apps/main.html' %}
+{% block content %}
+    {% load static %}
+    <div class="header-bar">
+        <h1>Register</h1>
+    </div>
+
+    <div class="card-body">
+
+        <form method="POST" action="{% url 'register' %}">
+            {% csrf_token %}
+            {% if form.errors %}
+                {% for field in form %}
+                    {% if field.errors %}
+                        <div class="fieldWrapper" style="color: rgba(255,0,0,0.88);">
+                            {{ field.label_tag }}
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            <label>{{ form.username.label }}</label>
+            {{ form.username }}
+
+            <label>{{ form.password1.label }}</label>
+            {{ form.password1 }}
+
+            <label>{{ form.password2.label }}</label>
+            {{ form.password2 }}
+            <input style="margin-top:10px ;" class="button" type="submit" value="Register">
+        </form>
+        <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+    </div>
+{% endblock content %}

@@ -1,0 +1,32 @@
+{% extends 'apps/main.html' %}
+{% block content %}
+
+    <div class="header-bar">
+        <h1>Login</h1>
+    </div>
+
+    <div class="card-body">
+        <form method="POST">
+            {% csrf_token %}
+            {% if form.errors %}
+                {% for field in form %}
+                    {% if field.errors %}
+                        <div class="fieldWrapper" style="color: rgba(255,0,0,0.88);">
+                            {{ field.label_tag }}
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            {{ form.as_p }}
+            <input class="button" type="submit" value="Login">
+        </form>
+        <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+    </div>
+
+
+
+
+
+
+{% endblock content %}
