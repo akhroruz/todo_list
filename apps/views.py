@@ -14,9 +14,7 @@ class CustomLoginView(LoginView):
     template_name = 'apps/login.html'
     fields = '__all__'
     redirect_authenticated_user = True
-
-    def get_success_url(self):
-        return reverse_lazy('tasks')
+    next_page = reverse_lazy('tasks')
 
 
 class RegisterPage(FormView):
@@ -78,13 +76,3 @@ class CustomDeleteView(LoginRequiredMixin, DeleteView):
     model = Task
     context_object_name = 'task'
     success_url = reverse_lazy('tasks')
-
-
-# class TaskReorder(View):
-#     def post(self, request):
-#         form = PositionForm(request.POST)
-#         if form.is_valid():
-#             position_list = form.cleaned_data['position'].split(',')
-#             with transaction.atomic():
-#                 self.request.user.set_task_order(position_list)
-#         return redirect(reverse_lazy('tasks'))
